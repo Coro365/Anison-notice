@@ -9,7 +9,7 @@ Notify your Pushbullet of anime songs subscribed at animetick.net
 1. Pushbullet token (pushbullet.com/#settings/account)
 
 ## Screen shot
-![Screenshot](https://raw.github.com/wiki/Coro365/Anime-notice/screenshot-1.png)
+![Screenshot](https://raw.github.com/Coro365/Anime-notice/screenshot-1.png)
 
 ## Thanks
 1. Animetick.net
