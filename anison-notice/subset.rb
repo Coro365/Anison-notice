@@ -78,6 +78,27 @@ def renge_days
   end
 end
 
+def duplicate_delete(items)
+  unique_search_name = Array.new
+  search_names = Array.new
+  items.each do |item|
+    search_names.push(item[:search_name])
+  end
+  unique_search_name = search_names.uniq
+
+  unique_items = Array.new
+  unique_search_name.each do |usn|
+    items.each do |item|
+      if usn == item[:search_name]
+        unique_items.push(item)
+        break
+      end
+    end
+  end
+  
+  return unique_items
+end
+
 def today_goods_pb_message(today_goods)
   return if today_goods.empty?
   title = message = ""
