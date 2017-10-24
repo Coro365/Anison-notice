@@ -57,7 +57,8 @@ def syobo_goods(tid)
       url = goods_node.xpath(".//div[@class='title']/a").attr("href").value
       asin = url.match(/ASIN\/(.*?)\//)[1]
       date = goods_node.text.split("発売日: ")[1]
-      @goods.push({:asin => asin, :title => title, :url => url, :date => date, :genre => genre, :anime_name => anime_name})
+      search_name = title.gsub(/【.*?】|\(.*?\)| |　|\[.*?\]/,"")
+      @goods.push({:asin => asin, :title => title, :url => url, :date => date, :genre => genre, :anime_name => anime_name, :search_name => search_name})
     end
 
   end
@@ -100,6 +101,7 @@ def duplicate_delete(items)
 end
 
 def today_goods_pb_message(today_goods)
+  today_goods = duplicate_delete(today_goods)
   return if today_goods.empty?
   title = message = ""
   if today_goods.size == 1
@@ -123,13 +125,14 @@ def today_goods_pb_message(today_goods)
 end
 
 def soon_goods_pb_message(soon_goods)
+  soon_goods = duplicate_delete(soon_goods)
   return if soon_goods.empty?
   title = message = ""
   if soon_goods.size == 1
     #title = "#{soon_goods[0][:anime_name]} のAnisonが#{DAY_RANGE}日中にリリースされます"
     title = "#{soon_goods[0][:anime_name]} anison released in #{DAY_RANGE} days"
 
-    message = soon_goods[0][:title]  
+    message = soon_goods[0][:title] + " " + item[:date]
   elsif soon_goods.size >= 2
     anime_names = anime_names_to_string(soon_goods)
     #title = "#{anime_names} など#{soon_goods.size}個ののAnisonが#{DAY_RANGE}日中にリリースされます"
